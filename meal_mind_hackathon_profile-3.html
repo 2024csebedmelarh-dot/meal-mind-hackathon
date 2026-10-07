@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meal Mind | Hackathon Innovation</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:Inter,Segoe UI,Arial,sans-serif;
+  background:#f7f8f4;color:#18251d;line-height:1.6;
+}
+nav{
+  position:sticky;top:0;z-index:10;background:rgba(247,248,244,.92);
+  backdrop-filter:blur(10px);display:flex;justify-content:space-between;
+  align-items:center;padding:18px 7%;border-bottom:1px solid #dfe6df;
+}
+.logo{font-size:24px;font-weight:800;color:#176b45}.logo span{color:#e58b32}
+nav a{margin-left:24px;text-decoration:none;color:#314238;font-weight:600}
+.hero{
+  min-height:82vh;padding:90px 7%;display:grid;grid-template-columns:1.2fr .8fr;
+  gap:50px;align-items:center;background:linear-gradient(135deg,#f7f8f4,#eaf5ed);
+}
+.badge{display:inline-block;padding:8px 14px;border-radius:30px;background:#dff1e5;color:#176b45;font-weight:700;margin-bottom:18px}
+h1{font-size:clamp(45px,7vw,82px);line-height:1.02;margin-bottom:22px;letter-spacing:-3px}
+h1 span{color:#176b45}
+.hero p{font-size:19px;max-width:680px;color:#53645a}
+.buttons{margin-top:30px;display:flex;gap:14px;flex-wrap:wrap}
+.btn{padding:13px 22px;border-radius:12px;text-decoration:none;font-weight:700}
+.primary{background:#176b45;color:white}.secondary{border:1px solid #b9c8bd;color:#176b45}
+.illustration{
+  min-height:360px;border-radius:32px;background:#fff;border:1px solid #dce7df;
+  box-shadow:0 20px 60px rgba(24,37,29,.10);display:flex;align-items:center;
+  justify-content:center;position:relative;overflow:hidden;
+}
+.plate{width:220px;height:220px;border-radius:50%;background:#f2b35b;border:18px solid #fff;box-shadow:0 10px 30px #0002;display:flex;align-items:center;justify-content:center;font-size:75px}
+.leaf{position:absolute;font-size:48px}.l1{top:30px;left:35px}.l2{bottom:35px;right:40px}
+section{padding:80px 7%}
+.section-title{text-align:center;font-size:40px;margin-bottom:15px}
+.section-sub{text-align:center;color:#68766d;max-width:700px;margin:0 auto 45px}
+.problem{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.card{background:white;border:1px solid #e0e7e1;border-radius:20px;padding:28px;box-shadow:0 8px 25px #1a3a2410}
+.card .icon{font-size:34px;margin-bottom:12px}.card h3{margin-bottom:8px}
+.solution{background:#173b29;color:white}.solution .section-sub{color:#d1e0d5}
+.solution-grid{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:stretch}
+.feature{background:#ffffff12;border:1px solid #ffffff22;border-radius:20px;padding:28px}
+.feature h3{margin-bottom:10px;color:#b8edc8}
+.profile{background:#eef5ef}
+.profile-box{max-width:900px;margin:auto;background:white;border-radius:28px;padding:38px;border:1px solid #dbe6dd;display:grid;grid-template-columns:140px 1fr;gap:30px;align-items:center}
+.avatar{width:140px;height:140px;border-radius:50%;background:linear-gradient(135deg,#176b45,#65a87d);color:white;display:flex;align-items:center;justify-content:center;font-size:42px;font-weight:800}
+.tags{display:flex;gap:9px;flex-wrap:wrap;margin-top:15px}.tag{background:#e5f1e8;color:#176b45;padding:6px 11px;border-radius:20px;font-size:13px;font-weight:700}
+.team{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.member{text-align:center;background:white;border:1px solid #e0e7e1;border-radius:18px;padding:22px}
+.member-avatar{width:60px;height:60px;border-radius:50%;margin:0 auto 12px;background:#dcefe2;display:flex;align-items:center;justify-content:center;color:#176b45;font-weight:800;font-size:20px}
+.cta{text-align:center;background:#fff3e6}
+.cta h2{font-size:42px;margin-bottom:12px}.cta p{color:#69746c;margin-bottom:25px}
+footer{text-align:center;padding:30px;color:#738077;border-top:1px solid #dfe6df}
+@media(max-width:800px){
+  .hero,.solution-grid,.profile-box{grid-template-columns:1fr}
+  .problem{grid-template-columns:1fr}.team{grid-template-columns:repeat(2,1fr)}
+  nav a{display:none}.hero{padding-top:60px}h1{letter-spacing:-2px}
+}
+
+.prototype{background:#f1f7f2}
+.demo{max-width:1000px;margin:35px auto 0;background:#fff;border:1px solid #dbe7dd;border-radius:28px;padding:30px;box-shadow:0 15px 45px #1a3a2412}
+.demo-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.input-card{background:#f7faf7;border:1px solid #e0e9e1;border-radius:18px;padding:22px}
+.input-card h3{margin-bottom:16px}
+.input-row{display:flex;justify-content:space-between;align-items:center;margin:14px 0;gap:20px}
+.input-row input{width:120px;padding:10px;border:1px solid #cbd8ce;border-radius:9px;font-size:16px}
+.demo-btn{width:100%;border:0;cursor:pointer;margin-top:10px;padding:13px;border-radius:11px;background:#176b45;color:white;font-weight:700;font-size:15px}
+.result{border-radius:18px;padding:24px;background:#173b29;color:white;display:flex;flex-direction:column;justify-content:center}
+.result small{color:#c8dfcf}.result-number{font-size:58px;font-weight:800;line-height:1.1;margin:8px 0;color:#b8edc8}
+.result-note{margin-top:10px;color:#d7e7db}
+.flow{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
+.flow span{background:#e7f2e9;color:#176b45;padding:8px 12px;border-radius:20px;font-weight:700;font-size:13px}
+@media(max-width:800px){.demo-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<nav>
+  <div class="logo">Meal<span>Mind</span> ✦</div>
+  <div><a href="#idea">Our Idea</a><a href="#profile">Profile</a><a href="#team">Team</a></div>
+</nav>
+
+<header class="hero">
+  <div>
+    <div class="badge">HACKATHON INNOVATION • 2026</div>
+    <h1>Turning leftover food into <span>smart decisions.</span></h1>
+    <p>
+      Meet <strong>Bedmela</strong>, a CSE student and innovator, and the team behind
+      <strong>Meal Mind</strong> — an idea designed to help college and institutional
+      kitchens predict tomorrow's food requirement using attendance and leftover data.
+    </p>
+    <div class="buttons">
+      <a class="btn primary" href="#idea">Explore Meal Mind</a>
+      <a class="btn secondary" href="#team">Meet the Team</a>
+    </div>
+  </div>
+  <div class="illustration">
+    <div class="leaf l1">🌿</div><div class="leaf l2">🥕</div>
+    <div class="plate">🍲</div>
+  </div>
+</header>
+
+<section id="idea">
+  <h2 class="section-title">The Problem We Saw</h2>
+  <p class="section-sub">Every day, kitchens face the same question: “How much food should we prepare tomorrow?” Meal Mind turns everyday data into a practical answer.</p>
+  <div class="problem">
+    <div class="card"><div class="icon">🍚</div><h3>Food Waste</h3><p>Preparing too much food can create avoidable leftovers and unnecessary waste.</p></div>
+    <div class="card"><div class="icon">👥</div><h3>Changing Attendance</h3><p>Student attendance changes from day to day, making fixed cooking quantities unreliable.</p></div>
+    <div class="card"><div class="icon">📊</div><h3>No Simple Prediction</h3><p>Kitchen teams need an easy way to learn from previous attendance and leftover patterns.</p></div>
+  </div>
+</section>
+
+<section class="solution">
+  <h2 class="section-title">Our Innovation: Meal Mind</h2>
+  <p class="section-sub">A simple data-driven concept for smarter meal planning in colleges, hostels and community kitchens.</p>
+  <div class="solution-grid">
+    <div class="feature"><h3>01 · Collect</h3><p>Record daily attendance and the quantity of food left after meals.</p></div>
+    <div class="feature"><h3>02 · Learn</h3><p>Use historical patterns to understand how attendance relates to food consumption.</p></div>
+    <div class="feature"><h3>03 · Predict</h3><p>Estimate the next day's cooking quantity before the kitchen starts preparing food.</p></div>
+    <div class="feature"><h3>04 · Improve</h3><p>Compare predictions with actual leftovers and continuously improve future planning.</p></div>
+  </div>
+</section>
+
+<section id="profile" class="profile">
+  <h2 class="section-title">The Student Behind the Idea</h2>
+  <p class="section-sub">A young CSE student turning a real-world campus problem into a technology-driven solution.</p>
+  <div class="profile-box">
+    <div class="avatar">B</div>
+    <div>
+      <h2>Bedmela</h2>
+      <p><strong>CSE Student · Hackathon Innovator · Problem Solver</strong></p>
+      <p style="margin-top:10px;color:#617067">Passionate about technology, innovation and creating practical solutions that can make everyday systems more efficient and sustainable.</p>
+      <div class="tags"><span class="tag">Computer Science</span><span class="tag">Innovation</span><span class="tag">Hackathon</span><span class="tag">Meal Mind</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="team">
+  <h2 class="section-title">Meet Our Team</h2>
+  <p class="section-sub">Four students, one shared goal: turning a real campus problem into a smarter food-management solution.</p>
+  <div class="team">
+    <div class="member"><div class="member-avatar">B</div><h3>Bedmela</h3><p>CSE Student · Innovator</p></div>
+    <div class="member"><div class="member-avatar">H</div><h3>Hemavathi</h3><p>Team Member</p></div>
+    <div class="member"><div class="member-avatar">A</div><h3>Akshaya Sri</h3><p>Team Member</p></div>
+    <div class="member"><div class="member-avatar">B</div><h3>Baviya Shree</h3><p>Team Member</p></div>
+  </div>
+</section>
+
+<section class="cta">
+  <h2>One idea. A smarter tomorrow.</h2>
+  <p>Meal Mind is our attempt to combine computer science with a problem we see every day.</p>
+  <a class="btn primary" href="#idea">Discover the Idea</a>
+</section>
+
+<footer>© 2026 Meal Mind · Created by Bedmela & Team · Hackathon Innovation</footer>
+
+<script>
+function predictFood(){
+  const attendance = Number(document.getElementById('attendance').value) || 0;
+  const leftovers = Number(document.getElementById('leftovers').value) || 0;
+  const portion = Number(document.getElementById('portion').value) || 0.35;
+  const base = attendance * portion;
+  const adjusted = Math.max(0, base - Math.min(leftovers * 0.35, base * 0.20));
+  document.getElementById('prediction').textContent = adjusted.toFixed(1) + ' kg';
+  document.getElementById('resultText').textContent =
+    'Recommended cooking quantity for tomorrow based on the demo inputs.';
+}
+</script>
+</body>
+</html>
